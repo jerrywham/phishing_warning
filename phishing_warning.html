@@ -1,10 +1,10 @@
-<p class="phishing_warning"><mark>Attention : Le site d'où vous venez {{referrer}} présente une faille de sécurité.</mark> </p>
+<p class="phishing_warning"><mark>Attention : Le site d'où vous venez ({{referrer}}) présente une faille de sécurité.</mark> </p>
 
 <p>Il ne protège pas des vulnérabilités par <code>window.opener</code>. Celles-ci sont souvent utilisées pour des attaques de type phishing.</p>
 
 <p>Les attaques qui utilisent <code>window.opener</code> sont simples :</p>
 
-<p>Le site d'où vous venez — ou référant — autorise <a href="{SITE}">{SITE}</a> à modifier le contenu de la fenêtre où il est chargé.</p>
+<p>Le site d'où vous venez — ou référant — autorise <a href="{{SITE}}">{{SITE}}</a> à modifier le contenu de la fenêtre où il est chargé.</p>
 
 <p>Ainsi, lorsque vous cliquez sur un lien pour venir sur mon site, je peux potentiellement remplacer le site référant par une copie exacte de celui-ci sans que vous vous en rendiez compte.</p>
 
@@ -31,5 +31,3 @@ function openNew(url) {
 &lt;/script&gt;</code></pre>
 Et dans les liens, mettre :
 <pre class="line-numbers language-html"><code class="language-html">&lt;a href="url-vers-le-site" onclick="openNew(this.href);return false;" rel="noopener noreferrer"&gt;url-vers-le-site&lt;/a&gt;</code></pre>
-
-<script type="text/javascript" src="plugins/phishing_warning/phishing_warning.js"></script>
