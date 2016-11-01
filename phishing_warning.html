@@ -1,0 +1,35 @@
+<p class="phishing_warning"><mark>Attention : Le site d'où vous venez {{referrer}} présente une faille de sécurité.</mark> </p>
+
+<p>Il ne protège pas des vulnérabilités par <code>window.opener</code>. Celles-ci sont souvent utilisées pour des attaques de type phishing.</p>
+
+<p>Les attaques qui utilisent <code>window.opener</code> sont simples :</p>
+
+<p>Le site d'où vous venez — ou référant — autorise <a href="{SITE}">{SITE}</a> à modifier le contenu de la fenêtre où il est chargé.</p>
+
+<p>Ainsi, lorsque vous cliquez sur un lien pour venir sur mon site, je peux potentiellement remplacer le site référant par une copie exacte de celui-ci sans que vous vous en rendiez compte.</p>
+
+<p>Lorsque vous revenez sur l'onglet où est chargé ce que vous pensez être le site référant, il m'est possible de récupérer des informations sur tout ce que vous faîtes ou tapez. Par exemple des mots de passe de connexion, des numéros de compte, etc... </p>
+
+<p><strong>Faîtes donc bien attention à où est ce que vous êtes (vérifiez l'url) lorsque vous revenez sur un onglet de votre navigateur.</strong></p>
+
+<p>Attention, même un site qui n'utilise pas target ou une méthode javascript équivalente, peut être victime d'une telle faille s'il est épinglé dans vos onglets favoris. En effet, le fait d'épingler un site empêche qu'il soit fermé par le navigateur, qui ouvre alors un nouvel onglet pour afficher le lien.</p>
+
+<p>Pour plus d'informations sur le sujet, lisez :</p>
+<ul>
+	<li><a href="https://dev.to/ben/the-targetblank-vulnerability-by-example">The target="_blank" vulnerability by example</a></li>
+	<li><a href="https://mathiasbynens.github.io/rel-noopener/">About rel=noopener</a></li>
+</ul>
+<p>Cette page est inialement présente sur le site <a href="https://blog.nathanaelcherrier.com/">https://blog.nathanaelcherrier.com/</a> que je remercie au passage pour sa mise en garde. J'espère qu'il ne me tiendra pas rigueur d'avoir installé un système équivalent sur ce site.</p>
+
+<p>Une façon simple de se prémunir de ce genre de faille est d'utiliser la fonction javascript suivante (à placer dans l'entête de la page) :
+<pre class="line-numbers language-javascript"><code class="language-javascript">&lt;script type="text/javascript"&gt;
+function openNew(url) {
+	var otherWindow = window.open();
+	otherWindow.opener = null;
+	otherWindow.location = url;
+}
+&lt;/script&gt;</code></pre>
+Et dans les liens, mettre :
+<pre class="line-numbers language-html"><code class="language-html">&lt;a href="url-vers-le-site" onclick="openNew(this.href);return false;" rel="noopener noreferrer"&gt;url-vers-le-site&lt;/a&gt;</code></pre>
+
+<script type="text/javascript" src="plugins/phishing_warning/phishing_warning.js"></script>
