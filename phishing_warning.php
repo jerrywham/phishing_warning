@@ -92,8 +92,9 @@ function hook_phishing_warning_render_linklist($data)
     if (isset($_GET['phishing'])) {
         $phishing_warning_date = date('Ymd_his');
         $html = file_get_contents(PluginManager::$PLUGINS_PATH .'/phishing_warning/phishing_warning.html');
-        $html = str_replace('{SITE}', 'http'.($_SERVER['SERVER_PROTOCOL'] != 'HTTP/1.1' ? 's' : '').'://'.$_SERVER['SERVER_NAME'], $html);
-        // // Manipulate link data
+        $html = str_replace('{{referrer}}', ($_GET['referrer'] == $_SERVER['SERVER_NAME'] ? 'Site épinglé dans votre navigateur' : $_GET['referrer']), $html);
+        $html = str_replace('{{SITE}}', 'http'.($_SERVER['SERVER_PROTOCOL'] != 'HTTP/1.1' ? 's' : '').'://'.$_SERVER['SERVER_NAME'], $html);
+      // // Manipulate link data
         $data['links'] = array();
         $data['links'][$phishing_warning_date]['title'] = 'Alerte phishing !';
         $data['links'][$phishing_warning_date]['url'] = '';
