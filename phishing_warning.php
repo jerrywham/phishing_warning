@@ -60,6 +60,7 @@ function hook_phishing_warning_render_footer($data)
     // footer text
     $data['text'][] = '';
 
+    if (!isset($_GET['source'])) {
     // Free elements at the end of the page.
     $data['endofpage'][] = '<script>' ."\n".
 '// Phishing warning
@@ -68,7 +69,7 @@ function hook_phishing_warning_render_footer($data)
     url.href = document.referrer;
     window.opener.location = "?phishing&referrer=" + url.hostname;
   }'."\n".'</script>';
-
+    }
     // List of plugin's JS files.
     // Note that you just need to specify CSS path.
     
